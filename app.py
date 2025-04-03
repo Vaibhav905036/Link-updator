@@ -11,7 +11,7 @@ def home():
     return "Flask server is running! Use /update_link to update JSON file."
 
 # Yahan apna GitHub Token aur Repo Details bharna
-GITHUB_TOKEN = "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"
+GITHUB_TOKEN = "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"
 REPO_OWNER = "Vaibhav905036"
 REPO_NAME = "Link-updator"
 FILE_PATH = "vaibhav.json"

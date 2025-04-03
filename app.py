@@ -5,6 +5,11 @@ import json
 
 app = Flask(__name__)
 
+# Home Route (Fix for 404 Error)
+@app.route('/')
+def home():
+    return "Flask server is running! Use /update_link to update JSON file."
+
 # Yahan apna GitHub Token aur Repo Details bharna
 GITHUB_TOKEN = "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"
 REPO_OWNER = "Vaibhav905036"
@@ -49,3 +54,4 @@ def update_link():
 
 if __name__ == '__main__':
     app.run(debug=True)
+    

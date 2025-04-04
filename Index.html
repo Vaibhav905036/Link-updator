@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,113 +8,94 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            background-color: #007bff;
-            color: white;
             padding: 20px;
-        }
-        h2 {
-            background: white;
-            color: black;
-            padding: 10px;
-            display: inline-block;
-            border-radius: 8px;
-            border: 2px solid black;
         }
         input {
             padding: 10px;
             width: 80%;
             margin: 10px;
-            border-radius: 5px;
-            border: none;
         }
         button {
             padding: 10px;
-            background: #28a745;
+            background: green;
             color: white;
             border: none;
             cursor: pointer;
-            border-radius: 5px;
         }
         #message {
             display: none;
             color: white;
-            background: #28a745;
+            background: green;
             padding: 10px;
             margin-top: 10px;
-            border-radius: 5px;
-        }
-        .footer {
-            position: fixed;
-            bottom: 10px;
-            right: 10px;
-            font-size: 14px;
-            font-weight: bold;
         }
     </style>
 </head>
 <body>
-    <h2>ROUNDER TV JIO TV SCRIPT UPDATER</h2>
+
+    <h2>Rounder TV Jio Script Updater</h2>
     <input type="text" id="linkInput" placeholder="Enter link to update">
     <button onclick="submitLink()">Submit</button>
     <div id="message">Link Updated Successfully!</div>
-    <div class="footer">Made By Vaibhav 🔥</div><script>
-    async function submitLink() {
-        let link = document.getElementById("linkInput").value;
-        if (!link) {
-            alert("Please enter a link!");
-            return;
-        }
 
-        let githubToken = "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"; 
-        let githubUsername = "Vaibhav905036";  
-        let repoName = "Vaibhav";
-        let filePath = "vaibhav.json";
-
-        try {
-            let getFileUrl = `https://api.github.com/repos/${githubUsername}/${repoName}/contents/${filePath}`;
-
-            let fileData = await fetch(getFileUrl, {
-                headers: {
-                    "Authorization": `Bearer ${githubToken}`,
-                    "Accept": "application/vnd.github.v3+json"
-                }
-            });
-
-            if (!fileData.ok) throw new Error("Error fetching file data!");
-
-            let fileJson = await fileData.json();
-            let sha = fileJson.sha;
-
-            let updatedJson = JSON.stringify({ url: link }, null, 2);
-            let encodedContent = btoa(unescape(encodeURIComponent(updatedJson)));
-
-            let updateFileUrl = `https://api.github.com/repos/${githubUsername}/${repoName}/contents/${filePath}`;
-
-            let response = await fetch(updateFileUrl, {
-                method: "PUT",
-                headers: {
-                    "Authorization": `Bearer ${githubToken}`,
-                    "Accept": "application/vnd.github.v3+json"
-                },
-                body: JSON.stringify({
-                    message: "Updated link",
-                    content: encodedContent,
-                    sha: sha
-                })
-            });
-
-            if (response.ok) {
-                document.getElementById("message").style.display = "block";
-                setTimeout(() => document.getElementById("message").style.display = "none", 3000);
-            } else {
-                throw new Error("Error updating JSON file!");
+    <script>
+        async function submitLink() {
+            let link = document.getElementById("linkInput").value;
+            if (!link) {
+                alert("Please enter a link!");
+                return;
             }
-        } catch (error) {
-            console.error(error);
-            alert(error.message);
+
+            let githubToken = "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";  // ✅ Yaha apna new token daalna
+            let githubUsername = "Vaibhav905036";  
+            let repoName = "Vaibhav";  // ✅ Repo ka actual name (Double-check kar)
+            let filePath = "vaibhav.json";  // ✅ Extra quotes hata diye
+
+            try {
+                let getFileUrl = `https://api.github.com/repos/${githubUsername}/${repoName}/contents/${filePath}`;
+
+                let fileData = await fetch(getFileUrl, {
+                    headers: {
+                        "Authorization": `Bearer ${githubToken}`,
+                        "Accept": "application/vnd.github.v3+json"
+                    }
+                });
+
+                if (!fileData.ok) throw new Error("Error fetching file data!");
+
+                let fileJson = await fileData.json();
+                let sha = fileJson.sha;
+
+                let updatedJson = JSON.stringify({ url: link }, null, 2);
+                let encodedContent = btoa(unescape(encodeURIComponent(updatedJson)));
+
+                let updateFileUrl = `https://api.github.com/repos/${githubUsername}/${repoName}/contents/${filePath}`;
+
+                let response = await fetch(updateFileUrl, {
+                    method: "PUT",
+                    headers: {
+                        "Authorization": `Bearer ${githubToken}`,
+                        "Accept": "application/vnd.github.v3+json"
+                    },
+                    body: JSON.stringify({
+                        message: "Updated link",
+                        content: encodedContent,
+                        sha: sha
+                    })
+                });
+
+                if (response.ok) {
+                    document.getElementById("message").style.display = "block";
+                    setTimeout(() => document.getElementById("message").style.display = "none", 3000);
+                } else {
+                    throw new Error("Error updating JSON file!");
+                }
+            } catch (error) {
+                console.error(error);
+                alert(error.message);
+            }
         }
-    }
-</script>
+    </script>
 
 </body>
 </html>
